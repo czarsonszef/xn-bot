@@ -20,9 +20,6 @@ def get_time():
 
 
 def log_str(arg: str):
-    if not arg:  # jesli w tweecie jest tylko zdjecie
-        return get_time()+'Odpowiedziano na tweet\'a bez tresci'
-
     if len(arg) <= 30:
         return get_time()+'Odpowiedziano na tweet\'a o tresci: '+arg
 
