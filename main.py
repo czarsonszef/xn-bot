@@ -15,14 +15,11 @@ translator = Translator()
 with open('last_tweet_id.json', 'r') as f:  # setup last tweeta
     f_obj = json.load(f)
 
-skip_first_tweet = False
-
 while True:
     if f_obj['last_tweet_id'] == '':
         public_tweets = api.home_timeline()
     else:
         public_tweets = api.home_timeline(since_id=f_obj['last_tweet_id'])
-        skip_first_tweet = True
 
     for tweet in public_tweets[::-1]:
         if not tweet.text:  # gdy w tweecie jest tylko zdjecie
