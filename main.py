@@ -31,13 +31,6 @@ while True:
         if tweet.text[0] == 'R' and tweet.text[1] == 'T':  # zeby nie komentowalo retweetow
             continue
 
-        if skip_first_tweet:
-            """
-            public_tweets zawiera zawsze tweeta z zapisanym id, a nie jest pożądane komentowanie tego samego tweeta wiecej niz raz
-            """
-            skip_first_tweet = False
-            continue
-
         if tweet.user.following == False:  # zeby nie komentowalo polecanym
             continue
 
