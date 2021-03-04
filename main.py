@@ -1,3 +1,4 @@
+#!/usr/bin/python3.9
 import tweepy
 import json
 from time import sleep
@@ -24,11 +25,11 @@ while True:
     for tweet in public_tweets[::-1]:
         if not tweet.text:  # gdy w tweecie jest tylko zdjecie
             continue
-
-        if tweet.text[:2] == 'RT':  # zeby nie komentowalo retweetow
+            
+        if not tweet.user.following  # zeby nie komentowalo polecanym
             continue
 
-        if not tweet.user.following  # zeby nie komentowalo polecanym
+        if tweet.text[:2] == 'RT':  # zeby nie komentowalo retweetow
             continue
 
         message = translator.translate(
