@@ -25,10 +25,10 @@ while True:
         if not tweet.text:  # gdy w tweecie jest tylko zdjecie
             continue
 
-        if tweet.text[0] == 'R' and tweet.text[1] == 'T':  # zeby nie komentowalo retweetow
+        if tweet.text[:2] == 'RT':  # zeby nie komentowalo retweetow
             continue
 
-        if tweet.user.following == False:  # zeby nie komentowalo polecanym
+        if not tweet.user.following  # zeby nie komentowalo polecanym
             continue
 
         message = translator.translate(
