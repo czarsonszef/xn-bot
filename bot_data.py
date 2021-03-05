@@ -30,4 +30,9 @@ def log_str(arg: str):
             break
         buff = buff + c
 
-    return get_time()+'Odpowiedziano na tweet\'a o tresci: '+arg[:30]+buff+'...'
+    log = get_time()+'Odpowiedziano na tweet\'a o tresci: '+arg[:30]+buff+'...'
+
+    with open("logi.txt", "w") as f:
+        f.write(log+'\n')
+
+    return log
