@@ -26,7 +26,7 @@ while True:
         if not tweet.text:  # gdy w tweecie jest tylko zdjecie
             continue
             
-        if not tweet.user.following  # zeby nie komentowalo polecanym
+        if not tweet.user.following:  # zeby nie komentowalo polecanym
             continue
 
         if tweet.text[:2] == 'RT':  # zeby nie komentowalo retweetow
