@@ -85,7 +85,7 @@ def handle_error(error: BaseException):
     error_msg = f'{get_time()["log_string"]}Błąd'
     print(error_msg)
 
-    log_map = log_map = [{
+    log_map = [{
         'month': get_time()['month_int'],
         'day': get_time()['day_int'],
         'time': get_time()['no_brackets_time'],
