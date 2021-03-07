@@ -47,5 +47,5 @@ while True:
     except BaseException as e:
         handle_error(e)
 
-    print(f'{get_time()["log_string"]}Czekam...')
+    print_log('Czekam...')
     sleep(180)

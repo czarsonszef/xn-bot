@@ -25,24 +25,37 @@ def get_time() -> dict:
     }
 
 
+def print_log(*args):
+    print(get_time()['log_string'], end="")
+    print(*args)
+
+
 def append_json(file_name: str, mapa):
     try:
         with open(file_name, 'r') as f:
             f_obj = json.load(f)
     except FileNotFoundError:
-        print(
-            f'{get_time()["log_string"]}Nie znaleziono pliku o nazwie {file_name}')
+        print_log(f'Nie znaleziono pliku o nazwie {file_name}')
         return
 
-    f_obj = f_obj + mapa
+    if type(mapa) == list:  # lista map z build_log_map()
+        f_obj = f_obj + mapa
+    elif type(mapa) == dict:
+        f_obj = f_obj | mapa
+
     with open(file_name, 'w') as f:
         json.dump(f_obj, f)
 
 
-# def print_log(*args):
-#    print(get_time()['log_string'], end="")
-#    print(*args)
-# TODO
+def build_log_map(log_str: str, **kwargs) -> list:
+    return [{
+        'month': get_time()['month_int'],
+        'day': get_time()['day_int'],
+        'time': get_time()['no_brackets_time'],
+        'log': log_str,
+        **kwargs
+    }]
+
 
 def log(arg: str):
     if len(arg) <= 30:
@@ -55,42 +68,22 @@ def log(arg: str):
             buff = buff + c
         log = 'Odpowiedziano na tweet\'a o tresci: ' + \
             arg[:30]+buff+'...'
-    print(get_time()['log_string']+log)
 
-    log_map = [{
-        'month': get_time()['month_int'],
-        'day': get_time()['day_int'],
-        'time': get_time()['no_brackets_time'],
-        'log': log
-    }]
+    print_log(log)
+    log_map = build_log_map(log_str=log)
     append_json('logi.json', log_map)
 
 
 def handle_error(error: BaseException):
     if error == RateLimitError:
-        error_msg = f'{get_time()["log_string"]}Rate limited'
-        print(error_msg)
-
-        log_map = [{
-            'month': get_time()['month_int'],
-            'day': get_time()['day_int'],
-            'time': get_time()['no_brackets_time'],
-            'log': "ERROR: Rate limited"
-        }]
+        print_log('Rate limited')
+        log_map = build_log_map(log_str='ERROR: RATE LIMITED')
         append_json('logi.json', log_map)
-
         time.sleep(900)
         return
 
-    error_msg = f'{get_time()["log_string"]}Błąd'
-    print(error_msg)
-
-    log_map = log_map = [{
-        'month': get_time()['month_int'],
-        'day': get_time()['day_int'],
-        'time': get_time()['no_brackets_time'],
-        'log': "ERROR: "+str(error)
-    }]
+    print_log('Nieznany błąd, sprawdź logi.json')
+    log_map = build_log_map(log_str='ERROR: '+str(error))
     append_json('logi.json', log_map)
 
 
