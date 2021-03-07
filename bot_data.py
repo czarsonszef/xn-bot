@@ -38,19 +38,11 @@ def append_json(file_name: str, mapa):
         print_log(f'Nie znaleziono pliku o nazwie {file_name}')
         return
 
-<<<<<<< HEAD
-    if type(mapa) == list:  # lista map z build_log_map()
-        f_obj = f_obj + mapa
-    elif type(mapa) == dict:
-        f_obj = f_obj | mapa
-
-=======
     if type(mapa) == list:
         f_obj = f_obj + mapa
     elif type(mapa) == dict:
         f_obj = f_obj | mapa
     
->>>>>>> bc23866fab5c65c5ef3c03e5169e98e475864d2c
     with open(file_name, 'w') as f:
         json.dump(f_obj, f)
 
