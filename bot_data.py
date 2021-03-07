@@ -82,20 +82,8 @@ def handle_error(error: BaseException):
         time.sleep(900)
         return
 
-<<<<<<< HEAD
     print_log('Nieznany błąd, sprawdź logi.json')
     log_map = build_log_map(log_str='ERROR: '+str(error))
-=======
-    error_msg = f'{get_time()["log_string"]}Błąd'
-    print(error_msg)
-
-    log_map = [{
-        'month': get_time()['month_int'],
-        'day': get_time()['day_int'],
-        'time': get_time()['no_brackets_time'],
-        'log': "ERROR: "+str(error)
-    }]
->>>>>>> bc23866fab5c65c5ef3c03e5169e98e475864d2c
     append_json('logi.json', log_map)
 
 
